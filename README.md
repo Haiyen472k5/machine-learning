@@ -7,6 +7,7 @@
 [![AUC](https://img.shields.io/badge/OOF_AUC-0.9526-blue?style=for-the-badge)](#)
 
 </div>
+
 ## 1. Tổng quan Dự án (Project Overview)
 
 Dự án này tập trung giải quyết bài toán phân loại các sự kiện **Tidal Disruption Events (TDE)** - hiện tượng một ngôi sao bị hố đen siêu khối lượng xé nát - từ dữ liệu khảo sát thiên văn ZTF.
