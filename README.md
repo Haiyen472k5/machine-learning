@@ -27,51 +27,68 @@ Dự án này tập trung giải quyết bài toán phân loại các sự kiệ
 
 Hệ thống được vận hành theo quy trình khép kín từ xử lý dữ liệu thô đến dự báo xác suất:
 ```mermaid
-graph LR
-    %% Định nghĩa Style
-    classDef blue fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
-    classDef purple fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef yellow fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
-    classDef green fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-
-    %% CỘT 1: PREPROCESSING
-    subgraph P1 [1. Preprocessing & Physics]
-        direction TB
-        Raw[Raw ZTF Lightcurves] --> Extinct[De-extinction & Cosmology]
-        Extinct --> Clean[Cleaned Flux & Abs Mag]
+graph TB
+    %% Define Styles
+    classDef blue fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef purple fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef yellow fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
+    classDef green fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    
+    %% Stage 1: PREPROCESSING
+    subgraph P1["1. Preprocessing & Physics"]
+        Raw[Raw ZTF Lightcurves]
+        Extinct[De-extinction & Cosmology]
+        Clean[Cleaned Flux & Abs Mag]
+        Raw --> Extinct
+        Extinct --> Clean
     end
+    
+    %% Stage 2: FEATURE ENGINEERING
+    subgraph P2["2. Feature Extraction"]
+        L2[Shape: Power-law vs Exp]
+        L3[Thermo: Color u-g, Temp]
+        L4[Stats: Skew, MAD, Stetson]
+    end
+    
+    %% Stage 3: SELECTION
+    subgraph P3["3. Feature Selection"]
+        Filter[Variance & Correlation Filter]
+        RFE[LightGBM RFE Selection]
+        FinalSet[Top 150 Features]
+        Filter --> RFE
+        RFE --> FinalSet
+    end
+    
+    %% Stage 4: MODELING
+    subgraph P4["4. Weighted Ensemble"]
+        LGBM[LightGBM - Optuna]
+        XGB[XGBoost - Hist]
+        CAT[CatBoost - Balanced]
+        Opt[Nelder-Mead Optimization]
+        Result[Final Probability]
+        LGBM --> Opt
+        XGB --> Opt
+        CAT --> Opt
+        Opt --> Result
+    end
+    
+    %% Connections between stages
+    Clean --> L2
+    Clean --> L3
+    Clean --> L4
+    L2 --> Filter
+    L3 --> Filter
+    L4 --> Filter
+    FinalSet --> LGBM
+    FinalSet --> XGB
+    FinalSet --> CAT
+    
+    %% Apply styles
     class P1 blue
-
-    %% CỘT 2: FEATURE ENGINEERING
-    subgraph P2 [2. Feature Extraction]
-        direction TB
-        Clean --> L2[Shape: Power-law vs Exp]
-        Clean --> L3[Thermo: Color u-g, Temp]
-        Clean --> L4[Stats: Skew, MAD, Stetson]
-    end
     class P2 purple
-
-    %% CỘT 3: SELECTION
-    subgraph P3 [3. Feature Selection]
-        direction TB
-        L2 & L3 & L4 --> Filter[Variance & Correlation Filter]
-        Filter --> RFE[LightGBM RFE Selection]
-        RFE --> FinalSet[Top 150 Features]
-    end
     class P3 yellow
-
-    %% CỘT 4: MODELING
-    subgraph P4 [4. Weighted Ensemble]
-        direction TB
-        FinalSet --> LGBM[LightGBM (Optuna)]
-        FinalSet --> XGB[XGBoost (Hist)]
-        FinalSet --> CAT[CatBoost (Balanced)]
-        LGBM & XGB & CAT --> Opt[Nelder-Mead Optimization]
-        Opt --> Result[Final Probability]
-    end
     class P4 green
 ```
-
 ---
 
 ## 4. Đặc trưng Vật lý (Theory-Guided Features)
