@@ -3,7 +3,7 @@
 <div align="center">
 
 [![Kaggle](https://img.shields.io/badge/🏆_Kaggle_Competition-20BEFF?style=for-the-badge)](https://www.kaggle.com/competitions/mallorn-astronomical-classification-challenge/overview)
-[![Score](https://img.shields.io/badge/Public_Score-0.6004-success?style=for-the-badge)]
+![Score](https://img.shields.io/badge/Public_Score-0.6004-success?style=for-the-badge)
 [![AUC](https://img.shields.io/badge/OOF_AUC-0.9526-blue?style=for-the-badge)](#)
 
 </div>
