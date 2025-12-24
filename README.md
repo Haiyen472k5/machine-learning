@@ -108,8 +108,8 @@ Nhóm đã trải qua 3 giai đoạn tối ưu hóa để đạt được kết 
 | Phiên bản | Chiến lược | Public Score | OOF AUC | Ghi chú kỹ thuật |
 |-----------|------------|--------------|---------|------------------|
 | **V1** | Single LightGBM | 0.5684 | 0.8578 | Baseline tốt nhưng Variance cao, Recall thấp (58%) |
-| **V2** | Naive Ensemble | 0.5652 | - | Thất bại do trung bình cộng đơn giản làm giảm hiệu suất |
-| **V3** | **Optimized Ensemble** | **0.6004** | **0.9526** | **Thành công:** Tối ưu hóa trọng số bằng thuật toán Nelder-Mead |
+| **V2** | CatBoost | 0.5652 | - | Thất bại do trung bình cộng đơn giản làm giảm hiệu suất |
+| **V3** | **Optimized Ensemble LGB + CatBoost + XGBoost** | **0.6004** | **0.9526** | **Thành công:** Tối ưu hóa trọng số bằng thuật toán Nelder-Mead |
 
 ### Cấu hình Ensemble V3 (Final)
 
