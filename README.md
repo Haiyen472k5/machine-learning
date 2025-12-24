@@ -26,6 +26,7 @@ Dự án này tập trung giải quyết bài toán phân loại các sự kiệ
 ├── model.ipynb                       # Bước 3 (V1): Huấn luyện Baseline LightGBM và (V2): Thử nghiệm với mô hình CatBoost
 ├── model_v2.ipynb                    # Bước 3 (V3 Final): Tối ưu hóa Ensemble (LGBM + XGB + Cat)
 ├── ve_tde_non_tde.ipynb              # Trực quan hóa so sánh Lightcurve TDE vs Non-TDE
+├── Báo_Cáo_Bài_Tập_Lớn.pdf           # Báo cáo kỹ thuật hoàn chỉnh
 └── README.md                         # Tài liệu dự án
 ```
 
