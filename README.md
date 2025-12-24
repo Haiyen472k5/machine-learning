@@ -63,9 +63,9 @@ graph LR
     %% CỘT 4: MODELING
     subgraph P4 [4. Weighted Ensemble]
         direction TB
-        FinalSet --> LGBM[LightGBM - Optuna]
-        FinalSet --> XGB[XGBoost - Hist]
-        FinalSet --> CAT[CatBoost - Balanced]
+        FinalSet --> LGBM[LightGBM (Optuna)]
+        FinalSet --> XGB[XGBoost (Hist)]
+        FinalSet --> CAT[CatBoost (Balanced)]
         LGBM & XGB & CAT --> Opt[Nelder-Mead Optimization]
         Opt --> Result[Final Probability]
     end
